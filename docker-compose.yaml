@@ -1,6 +1,6 @@
 #adapted from https://github.com/nextcloud/docker
 
-version: '2'
+version: '3'
 
 services:
   db:
@@ -28,30 +28,43 @@ services:
     environment:
       - DB_BACKUP_HOST=nextcloud-mariadb
       - DB_BACKUP_PASSWORD=randomPassword
-      - DB_BACKUP_NAME=nextcloud_db
+      - DB_BACKUP_NAME=nextcloud
     volumes:
       - /data/nextcloud/mariadb_backup:/backup
 
-#https://github.com/nextcloud/news-updater
+  redis:
+    image: redis
+    container_name: nextcloud-redis
+    command: ["redis-server"]
+    hostname: nextcloud-redis
+    volumes:
+      - /data/nextcloud/redis:/data
+
   app:
     container_name: nextcloud-app
     image: nextcloud
     depends_on:
       - db
+      - redis
     restart: unless-stopped
     ports:
       - "9080:80"
       - "9443:443"
+    environment:
+      - REDIS_HOST=nextcloud-redis
     volumes:
       - /data/nextcloud/app/apps:/var/www/html/apps
+      - /data/nextcloud/app/custom_apps:/var/www/html/custom_apps
       - /data/nextcloud/app/config:/var/www/html/config
       - /data/nextcloud/app/data:/var/www/html/data
 
-  news-updater:
-    container_name: nextcloud-news_updater
-    build: ./build_updater
-    depends_on:
-      - app
-    restart: unless-stopped
-    environment:
-      - NEWS_PASSWORD=GenerateNewPassword
+#Service unable for now :(
+#https://github.com/nextcloud/news-updater
+#  news-updater:
+#    container_name: nextcloud-news_updater
+#    build: ./build_updater
+#    depends_on:
+#      - app
+#    restart: unless-stopped
+#    environment:
+#      - NEWS_PASSWORD=GenerateNewPassword

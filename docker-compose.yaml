@@ -13,8 +13,8 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
     volumes:
-      - .data/mariadb/db:/var/lib/mysql
-      - .data/mariadb/etc:/etc/mysql
+      - ./data/mariadb/db:/var/lib/mysql
+      - ./data/mariadb/etc:/etc/mysql
 
   db_backup:
     container_name: nextcloud-mariadb_backup
@@ -38,7 +38,7 @@ services:
     command: ["redis-server"]
     hostname: nextcloud-redis
     volumes:
-      - .data/redis:/data
+      - ./data/redis:/data
 
   app:
     container_name: nextcloud-app

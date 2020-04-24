@@ -10,7 +10,7 @@ It currently uses MariaDB as database. And memcache Redis ready.
 4. Initialize Nextcloud with `MySQL/MariaDB` database host: `nextcloud-mariadb:3306`
 5. Wait installer finish
 6. Run `docker-compose stop`
-7. `cd data/app/config` and edit `config.php`
+7. `cd data/app/config` and edit `config.php` (WARNING: If the entries already exist, there is no need to edit them!)
 ```
   'memcache.local' => '\\OC\\Memcache\\APCu',
 ```

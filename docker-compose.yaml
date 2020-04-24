@@ -7,14 +7,14 @@ services:
     container_name: nextcloud-mariadb
     image: yobasystems/alpine-mariadb:armhf
     restart: unless-stopped
-    volumes:
-      - /data/nextcloud/mariadb/db:/var/lib/mysql
-      - /data/nextcloud/mariadb/etc:/etc/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=randomPassword
-      - MYSQL_PASSWORD=randomPassword
+      - MYSQL_ROOT_PASSWORD=[FILL_HERE]
+      - MYSQL_PASSWORD=[FILL_HERE]
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
+    volumes:
+      - .data/mariadb/db:/var/lib/mysql
+      - .data/mariadb/etc:/etc/mysql
 
   db_backup:
     container_name: nextcloud-mariadb_backup
@@ -27,10 +27,10 @@ services:
       - db
     environment:
       - DB_BACKUP_HOST=nextcloud-mariadb
-      - DB_BACKUP_PASSWORD=randomPassword
+      - DB_BACKUP_PASSWORD=[FILL_HERE]
       - DB_BACKUP_NAME=nextcloud
     volumes:
-      - /data/nextcloud/mariadb_backup:/backup
+      - ./data/mariadb_backup:/backup
 
   redis:
     image: redis
@@ -38,7 +38,7 @@ services:
     command: ["redis-server"]
     hostname: nextcloud-redis
     volumes:
-      - /data/nextcloud/redis:/data
+      - .data/redis:/data
 
   app:
     container_name: nextcloud-app
@@ -52,11 +52,12 @@ services:
       - "9443:443"
     environment:
       - REDIS_HOST=nextcloud-redis
+      - REDIS_PORT=6379
     volumes:
-      - /data/nextcloud/app/apps:/var/www/html/apps
-      - /data/nextcloud/app/custom_apps:/var/www/html/custom_apps
-      - /data/nextcloud/app/config:/var/www/html/config
-      - /data/nextcloud/app/data:/var/www/html/data
+      - ./data/app/apps:/var/www/html/apps
+      - ./data/app/custom_apps:/var/www/html/custom_apps
+      - ./data/app/config:/var/www/html/config
+      - ./data/app/data:/var/www/html/data
 
 #Service unable for now :(
 #https://github.com/nextcloud/news-updater

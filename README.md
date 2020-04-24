@@ -5,6 +5,7 @@ It currently uses MariaDB as database. And memcache Redis ready.
 ### Usage
 
 1. Edit `docker-compose.yaml` replace [FILL_HERE] fields with meaningfull values.
+  - more environments option in [https://github.com/nextcloud/docker](https://github.com/nextcloud/docker)
 2. Run `docker-compose up -d`
 3. Open browser `localhost:9080` on host machine
 4. Initialize Nextcloud with `MySQL/MariaDB` database host: `nextcloud-mariadb:3306`

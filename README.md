@@ -6,8 +6,11 @@ It currently uses MariaDB as database. And memcache Redis ready.
 
 1. Edit `docker-compose.yaml` replace [FILL_HERE] fields with meaningfull values.
 2. Run `docker-compose up -d`
-3. Run `docker-compose stop`
-4. `cd data/app/config` and edit `config.php`
+3. Open browser `localhost:9080` on host machine
+4. Initialize Nextcloud with `MySQL/MariaDB` database host: `nextcloud-mariadb:3306`
+5. Wait installer finish
+6. Run `docker-compose stop`
+7. `cd data/app/config` and edit `config.php`
 ```
   'memcache.local' => '\\OC\\Memcache\\APCu',
 ```
@@ -23,7 +26,8 @@ to
 ```
 ... and other config you need.
 
-5. Run `docker-compose start` again
+8. Run `docker-compose start` again
+9. Profit?
 
 ### Enable UTF8 support for MariaDB
 

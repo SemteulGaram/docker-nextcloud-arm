@@ -33,3 +33,10 @@ to
 ### Enable UTF8 support for MariaDB
 
 Folow the instructions mentioned [here](https://docs.nextcloud.com/server/12/admin_manual/configuration_database/mysql_4byte_support.html)
+
+### Useful tips
+```
+# config.php
+
+'simpleSignUpLink.shown' => false # Hide free signup message
+```

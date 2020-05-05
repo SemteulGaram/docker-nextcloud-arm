@@ -54,11 +54,12 @@ services:
       - REDIS_HOST=nextcloud-redis
       - REDIS_PORT=6379
     volumes:
-      - ./data/app/apps:/var/www/html/apps
-      - ./data/app/custom_apps:/var/www/html/custom_apps
-      - ./data/app/config:/var/www/html/config
-      - ./data/app/data:/var/www/html/data
-      - ./data/app/php.ini:/usr/local/etc/php/php.ini
+      - ./data/apps:/var/www/html/apps
+      - ./data/custom_apps:/var/www/html/custom_apps
+      - ./data/config:/var/www/html/config
+      - ./data/data:/var/www/html/data
+      - ./data/php:/usr/local/etc/php
+      - ./data/apache2:/etc/apache2
 
 #Service unable for now :(
 #https://github.com/nextcloud/news-updater
